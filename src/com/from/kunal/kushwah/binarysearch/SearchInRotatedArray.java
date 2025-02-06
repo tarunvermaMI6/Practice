@@ -4,49 +4,44 @@ public class SearchInRotatedArray {
 
 	public static void main(String[] args) {
 
-		int arr[] = { 7, 8, 9, 0, 1, 2, 3, 4, 5, 6 }; // their r three series, 7 to 9 asc, 0 to 7 asc , 9 to 0 is desc,
-														// means
-		// series changing from 9 and array is sorted that means 9 will be the max or
-		// pivot, search from start to pivot if
-		// element not found than, search in
-		int result = search(arr);
-		System.out.println("result = " + result);
-	}
+		int[] arr = { 4, 5, 6, 7,8,15,0, 1, 2 }; // both r asc series, getting peak element is different from this.
+		int target = 5;
 
-	public static int search(int[] arr) {
-
-		int pivotPoint = FindPivotPoint.getPivotPoint(arr);
-		System.out.println("pivot point = "+pivotPoint);
+		// find the pivot
+		int pivot = findPivot(arr);
+		// search i both series
+		System.out.println("pivot == "+pivot);
+		int result = bs(arr, 0, pivot, target);
 		
-		int result = binarySearch(arr, 2, 0, pivotPoint);
-		System.out.println("first result = "+result);
 		if (result == -1) {
-			result = binarySearch(arr, 2, pivotPoint, arr.length - 1);
-			System.out.println("second result = "+result);
+			result = bs(arr, pivot+1, arr.length - 1, target);
 		}
-		return result;
+        System.out.println("result === "+result);
 	}
 
-	public static int binarySearch(int[] arr, int target, int start, int end) {
-
-		int mid = 0;
+	public static int bs(int[] arr, int start, int end, int target) {
 
 		while (start <= end) {
-
-			mid = start + (end - start) / 2;
-
-			if (arr[mid] == arr[target]) {
+			int mid = start + (end - start) / 2;
+			if (arr[mid] == target) {
 				return mid;
-			}
-
-			if (arr[mid] > arr[target] && mid>start) {
+			} else if (arr[mid] > target) {
 				end = mid - 1;
-			} else if(arr[mid] < arr[target] && end>mid){
+			} else {
 				start = mid + 1;
 			}
-
 		}
-
 		return -1;
+	}
+
+	public static int findPivot(int[] arr) {
+
+		int start = 0, end = arr.length - 1;
+
+		while (start < end) {
+			int mid = start + (end - start) / 2;
+
+					}
+		return end;
 	}
 }
